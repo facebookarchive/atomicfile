@@ -10,7 +10,7 @@ func TestSimple(t *testing.T) {
 	names := []string{"TestSimple", "/tmp/foo"}
 	for _, name := range names {
 		defer os.Remove(name)
-		f, err := atomicfile.New(name)
+		f, err := atomicfile.New(name, os.FileMode(0666))
 		if err != nil {
 			t.Fatal(err)
 		}

@@ -16,11 +16,12 @@ type File struct {
 }
 
 // Create a new file that will replace the file at the given path when Closed.
-func New(path string) (*File, error) {
+func New(path string, mode os.FileMode) (*File, error) {
 	f, err := ioutil.TempFile(filepath.Dir(path), filepath.Base(path))
 	if err != nil {
 		return nil, err
 	}
+	os.Chmod(f.Name(), mode)
 	return &File{File: f, path: path}, nil
 }
 
