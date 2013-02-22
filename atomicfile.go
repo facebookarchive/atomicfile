@@ -21,7 +21,10 @@ func New(path string, mode os.FileMode) (*File, error) {
 	if err != nil {
 		return nil, err
 	}
-	os.Chmod(f.Name(), mode)
+	if err := os.Chmod(f.Name(), mode); err != nil {
+		os.Remove(f.Name())
+		return nil, err
+	}
 	return &File{File: f, path: path}, nil
 }
 
