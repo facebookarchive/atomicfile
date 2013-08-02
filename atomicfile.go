@@ -1,6 +1,6 @@
-// Package atomicfile provides the ability to automically write a file with an
-// eventual rename on Close. This allows for a file to always be in a
-// consistent state and never represent an in-progress write.
+// Package atomicfile provides the ability to write a file with an eventual
+// rename on Close. This allows for a file to always be in a consistent state
+// and never represent an in-progress write.
 package atomicfile
 
 import (
@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-// Behaves like os.File, but does an automic rename operation at Close.
+// Behaves like os.File, but does an atomic rename operation at Close.
 type File struct {
 	*os.File
 	path string
