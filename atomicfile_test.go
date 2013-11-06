@@ -1,9 +1,10 @@
 package atomicfile_test
 
 import (
-	"github.com/daaku/go.atomicfile"
 	"os"
 	"testing"
+
+	"github.com/ParsePlatform/go.atomicfile"
 )
 
 func TestSimple(t *testing.T) {
