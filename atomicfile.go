@@ -38,3 +38,16 @@ func (f *File) Close() error {
 	}
 	return nil
 }
+
+// Abort closes the file and removes it instead of replacing the configured
+// file. This is useful if after starting to write to the file you decide you
+// don't want it anymore.
+func (f *File) Abort() error {
+	if err := f.File.Close(); err != nil {
+		return err
+	}
+	if err := os.Remove(f.Name()); err != nil {
+		return err
+	}
+	return nil
+}
