@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ParsePlatform/go.atomicfile"
+	"github.com/facebookgo/atomicfile"
 )
 
 func test(t *testing.T, dir, prefix string) {
