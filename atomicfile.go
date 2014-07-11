@@ -9,13 +9,14 @@ import (
 	"path/filepath"
 )
 
-// Behaves like os.File, but does an atomic rename operation at Close.
+// File behaves like os.File, but does an atomic rename operation at Close.
 type File struct {
 	*os.File
 	path string
 }
 
-// Create a new file that will replace the file at the given path when Closed.
+// New creates a new temporary file that will replace the file at the given
+// path when Closed.
 func New(path string, mode os.FileMode) (*File, error) {
 	f, err := ioutil.TempFile(filepath.Dir(path), filepath.Base(path))
 	if err != nil {
