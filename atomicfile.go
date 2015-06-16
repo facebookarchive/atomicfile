@@ -1,6 +1,8 @@
 // Package atomicfile provides the ability to write a file with an eventual
-// rename on Close. This allows for a file to always be in a consistent state
-// and never represent an in-progress write.
+// rename on Close (using os.Rename). This allows for a file to always be in a
+// consistent state and never represent an in-progress write.
+//
+// NOTE: `os.Rename` may not be atomic on your operating system.
 package atomicfile
 
 import (
