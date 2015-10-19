@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"runtime"
 )
 
 // File behaves like os.File, but does an atomic rename operation at Close.
@@ -37,6 +38,11 @@ func (f *File) Close() error {
 	if err := f.File.Close(); err != nil {
 		os.Remove(f.File.Name())
 		return err
+	}
+	if runtime.GOOS == "windows" {
+		if err := os.Remove(f.path); err != nil {
+			return err
+		}
 	}
 	if err := os.Rename(f.Name(), f.path); err != nil {
 		return err
