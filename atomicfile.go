@@ -25,6 +25,7 @@ func New(path string, mode os.FileMode) (*File, error) {
 		return nil, err
 	}
 	if err := os.Chmod(f.Name(), mode); err != nil {
+		f.Close()
 		os.Remove(f.Name())
 		return nil, err
 	}
@@ -34,6 +35,7 @@ func New(path string, mode os.FileMode) (*File, error) {
 // Close the file replacing the configured file.
 func (f *File) Close() error {
 	if err := f.File.Close(); err != nil {
+		os.Remove(f.File.Name())
 		return err
 	}
 	if err := os.Rename(f.Name(), f.path); err != nil {
@@ -47,6 +49,7 @@ func (f *File) Close() error {
 // don't want it anymore.
 func (f *File) Abort() error {
 	if err := f.File.Close(); err != nil {
+		os.Remove(f.Name())
 		return err
 	}
 	if err := os.Remove(f.Name()); err != nil {
