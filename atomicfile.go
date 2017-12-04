@@ -38,10 +38,7 @@ func (f *File) Close() error {
 		os.Remove(f.File.Name())
 		return err
 	}
-	if err := os.Rename(f.Name(), f.path); err != nil {
-		return err
-	}
-	return nil
+	return os.Rename(f.Name(), f.path)
 }
 
 // Abort closes the file and removes it instead of replacing the configured
@@ -52,8 +49,5 @@ func (f *File) Abort() error {
 		os.Remove(f.Name())
 		return err
 	}
-	if err := os.Remove(f.Name()); err != nil {
-		return err
-	}
-	return nil
+	return os.Remove(f.Name())
 }
